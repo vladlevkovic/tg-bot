@@ -2,16 +2,14 @@ import requests
 
 API_KEY = '1224e7d3db47b619825107c01b3d588f'
 
-def get_city_lon_lat(city='Львів'):
+def get_city_lon_lat(city):
     lat, lon = None, None
     url_lon_lat = f'https://api.openweathermap.org/geo/1.0/direct?q={city}&appid={API_KEY}'
     response = requests.get(url_lon_lat)
     if response.status_code == 200:
         data = response.json()
-        print(data)
         lat = data[0]['lat']
         lon = data[0]['lon']
-    print(lat, lon)
     return lat, lon
 
 
@@ -34,8 +32,3 @@ def get_weather_city(lat, lon):
             'temp_min': round(temp_min - 273)
         })
     return weather_dict_data
-
-
-# if __name__ == '__main__':
-#     lat, lon = get_city_lon_lat()
-#     print(get_weather_city(lat, lon))
